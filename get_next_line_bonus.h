@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 03:18:38 by bena              #+#    #+#             */
-/*   Updated: 2022/05/15 03:36:06 by bena             ###   ########.fr       */
+/*   Updated: 2022/05/17 05:59:30 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
-typedef struct t_fds
+# define MAX_FD 4096
+
+typedef struct t_fd
 {
 	int				fd;
-	static int		index;
-	struct t_fds	*next;
-}	t_fds;
+	int				index;
+	struct t_fd		*next;
+}	t_fd;
 
 
 char	*get_next_line(int fd);
