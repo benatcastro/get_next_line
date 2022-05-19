@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 03:21:49 by bena              #+#    #+#             */
-/*   Updated: 2022/05/17 07:33:57 by bena             ###   ########.fr       */
+/*   Updated: 2022/05/19 09:17:27 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,28 +29,39 @@ static	t_fd	*ft_get_node(int fd)
 
 }
 
+static	char	*get_str(int fd)
+{
+	int		rd;
+	int		counter;
+	char	*buffer;
+	char	*str;
+	char	*aux;
+
+	rd = 1;
+	counter = 0;
+	buffer = malloc(1);
+	str = malloc(1);
+	while (rd != 0)
+	{
+		counter++;
+		rd = read(fd, buffer, 1);
+		if (rd == 0)
+			break ;
+		printf("(%s)", buffer);
+		str = ft_strjoin(str, buffer);
+	}
+	printf("counter (%d)\n", counter);
+	free(buffer);
+	return (str);
+}
+
 char	*get_next_line(int fd)
 {
-	char		*buffer;
-	int			rd;
-	int			counter;
-	char		*str;
 	static t_fd	data;
+	char		*test;
 
-	counter = 0;
-	while (rd != 0 || counter == 0)
-	{
-		buffer = calloc(1, 1);
-		rd = read(fd, buffer, 1);
-		str = ft_strjoin(str, buffer);
-		//printf("(%s)", buffer);
-		if (buffer[0] == '\n')
-			return (ft_substr(str, 0, data.index));
-		free(buffer);
-		data.index++;
-	}
-
-	//ft_get_node(fd);
+	printf("getStr (%s)\n", get_str(fd));
+	return ("test");
 }
 
 int	main(void)
@@ -59,4 +70,5 @@ int	main(void)
 
 	fd = open("tests/test1.txt", O_RDONLY);
 	printf ("Return : (%s)", get_next_line(fd));
+	close(fd);
 }
