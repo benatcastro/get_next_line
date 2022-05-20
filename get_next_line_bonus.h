@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 03:18:38 by bena              #+#    #+#             */
-/*   Updated: 2022/05/17 07:33:32 by bena             ###   ########.fr       */
+/*   Updated: 2022/05/19 12:42:11 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct t_fd
 {
 	int				fd;
 	int				index;
+	char			*str;
 	struct t_fd		*next;
 }	t_fd;
 

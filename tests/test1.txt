@@ -1,1 +1,5 @@
+hola
+adios
+buenas
+tardes
 12345

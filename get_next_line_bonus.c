@@ -6,11 +6,22 @@
 /*   By: bena <bena@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 03:21:49 by bena              #+#    #+#             */
-/*   Updated: 2022/05/19 09:17:27 by bena             ###   ########.fr       */
+/*   Updated: 2022/05/20 07:28:30 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
+
+char	*ft_strdup(const char *s1)
+{
+	char	*str;
+
+	str = malloc((ft_strlen(s1) + 1) * sizeof(char));
+	if (!str)
+		return (NULL);
+	ft_strlcpy(str, s1, ft_strlen(s1) + 1);
+	return (str);
+}
 
 static	t_fd	*ft_get_node(int fd)
 {
@@ -40,17 +51,19 @@ static	char	*get_str(int fd)
 	rd = 1;
 	counter = 0;
 	buffer = malloc(1);
-	str = malloc(1);
+	str = malloc(0);
 	while (rd != 0)
 	{
 		counter++;
 		rd = read(fd, buffer, 1);
 		if (rd == 0)
 			break ;
-		printf("(%s)", buffer);
-		str = ft_strjoin(str, buffer);
+		aux = ft_strjoin(str, buffer);
+		free(str);
+		str = ft_strdup(aux);
+		free(aux);
+
 	}
-	printf("counter (%d)\n", counter);
 	free(buffer);
 	return (str);
 }
@@ -58,10 +71,22 @@ static	char	*get_str(int fd)
 char	*get_next_line(int fd)
 {
 	static t_fd	data;
-	char		*test;
+	int			j;
+	char		*s;
 
-	printf("getStr (%s)\n", get_str(fd));
-	return ("test");
+	if (!data.str)
+		data.str = ft_strdup(get_str(fd));
+	j = data.index;
+	while (data.str[data.index])
+	{
+		if (data.str[data.index] == '\n')
+		{
+			data.index++;
+			return (ft_substr(data.str, j, data.index));
+		}
+		data.index++;
+	}
+	return(NULL);
 }
 
 int	main(void)
@@ -69,6 +94,13 @@ int	main(void)
 	int fd;
 
 	fd = open("tests/test1.txt", O_RDONLY);
-	printf ("Return : (%s)", get_next_line(fd));
+	//get_next_line(fd);
+	//get_next_line(fd);
+	printf ("Return : %s\n", get_next_line(fd));
+
+	// printf ("Return : %s\n", get_next_line(fd));
+	// printf ("Return : %s\n", get_next_line(fd));
+	// printf ("Return : %s\n", get_next_line(fd));
+	// printf ("Return : %s\n", get_next_line(fd));
 	close(fd);
 }
