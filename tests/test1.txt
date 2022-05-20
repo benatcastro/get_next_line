@@ -1,5 +1,4 @@
-hola
-adios
-buenas
+hola tio
+adios buenas
 tardes
 12345

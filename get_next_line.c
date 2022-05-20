@@ -48,8 +48,7 @@ static	char	*get_str(int fd)
 	char	*str;
 	char	*aux;
 
-	i = BUFFER_SIZE;
-	i = 1;
+	BUFFER_SIZE = 1;
 	rd = 1;
 	buffer = malloc(sizeof(char *));
 	str = malloc(0);
