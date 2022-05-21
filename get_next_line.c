@@ -43,24 +43,22 @@ char	*ft_strdup(const char *s1)
 static	char	*get_str(int fd)
 {
 	int		rd;
-	int		i;
 	char	*buffer;
 	char	*str;
 	char	*aux;
 
-	BUFFER_SIZE = 1;
 	rd = 1;
 	buffer = malloc(sizeof(char *));
 	str = malloc(0);
 	str[0] = 0;
 	while (rd != 0)
 	{
-		rd = read(fd, buffer, i);
+		rd = read(fd, buffer, 1);
 		buffer[1] = 0;
 		if (rd == 0)
 			break ;
 		aux = ft_strjoin(str, buffer);
-		free(str);
+		free(str);s
 		str = ft_strdup(aux);
 		free(aux);
 	}
@@ -77,7 +75,7 @@ static	int	ft_add_i(char *str)
 
 char	*get_next_line(int fd)
 {
-	static char	*str;
+	static t_fd	*node;
 	char		*aux;
 	char		*aux2;
 	int			i;
@@ -88,11 +86,24 @@ char	*get_next_line(int fd)
 	i = ft_add_i(str);
 	while (str[++i])
 	{
-		if (str[i] == '\n' || str[i + 1] == '\n')
+		if (str[i] == '\n' || str[i + 1] == '\n' || str[i + 1] == 0 || str[i] == 0)
 		{
-			aux = ft_substr(str, 0, i);
+			//printf("aux (%s)\n", aux);
 			if (str[i + 1] == '\n')
+			{
+				//printf("test0\n");
 				aux = ft_substr(str, 0, i + 1);
+			}
+			else if (ft_strlen(str) == 1)
+			{
+				//printf("test1\n");
+				aux = ft_substr(str, 0, i + 1);
+			}
+			else
+			{
+				//printf("test2\n");
+				aux = ft_substr(str, 0, i + 1);
+			}
 			aux2 = ft_strdup(str);
 			free(str);
 			str = ft_substr(aux2, i + 1, ft_strlen(aux2) - ft_strlen(aux));
@@ -101,6 +112,7 @@ char	*get_next_line(int fd)
 		}
 		i++;
 	}
+	//printf("str: (%s)\n", str);
 	return (aux);
 }
 
@@ -109,11 +121,11 @@ int	main(void)
 	int 	fd;
 	char	*str;
 
-	fd = open("tests/test1.txt", O_RDONLY);
+	fd = open("tests/42_with_nl2", O_RDONLY);
 	for (size_t i = 0; i < 10; i++)
 	{
 		str = get_next_line(fd);
-		printf ("Return%lu : %s\n", i, str);
+		printf ("Return%lu : |%s|\n", i, str);
 		free(str);
 	}
 	close(fd);

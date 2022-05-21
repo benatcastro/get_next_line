@@ -6,7 +6,7 @@
 /*   By: becastro <becastro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 03:18:38 by bena              #+#    #+#             */
-/*   Updated: 2022/05/20 23:39:05 by becastro         ###   ########.fr       */
+/*   Updated: 2022/05/21 19:02:02 by becastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 typedef struct t_fd
 {
 	int				fd;
-	int				index;
 	char			*str;
-	int				check;
+	struct s_list	*next;
+
 }	t_fd;
 
 char	*get_next_line(int fd);

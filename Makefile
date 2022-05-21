@@ -5,7 +5,7 @@ RM	= rm -r
 LIBFT = libft
 CFLAGS = -Wall -Werror -Wextra -D BUFFER_SIZE=42
 TFLAGS = -std=c11 -Wall -ggdb3 -D BUFFER_SIZE=42
-SANITIZE = -fsanitize=address -g3
+SANITIZE = -fsanitize=address -g3 -D BUFFER_SIZE=42
 VALGRIND = valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes
 HEADER  = ../includes/
 SRC_DIR = srcs/ft_
@@ -30,6 +30,7 @@ bonus : re
 	@echo "bonus compiled"
 
 out: re
+	@clear
 	@./a.out
 
 sanitize:
