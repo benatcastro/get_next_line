@@ -104,29 +104,17 @@ char	*get_next_line(int fd)
 	return (aux);
 }
 
-// int	main(void)
-// {
-// 	int fd;
-// 	char	*str;
+int	main(void)
+{
+	int 	fd;
+	char	*str;
 
-
-// 	fd = open("tests/test1.txt", O_RDONLY);
-// 	str = get_next_line(fd);
-// 	printf ("Return1 : %s\n", str);
-// 	free(str);
-// 	str = get_next_line(fd);
-// 	printf ("Return2 : %s\n", str);
-// 	free(str);str = get_next_line(fd);
-// 	printf ("Return3 : %s\n", str);
-// 	free(str);str = get_next_line(fd);
-// 	printf ("Return4 : %s\n", str);
-// 	free(str);	str = get_next_line(fd);
-// 	printf ("Return5 : %s\n", str);
-// 	free(str);
-
-// 	// printf ("Return : %s\n", get_next_line(fd));
-// 	// printf ("Return : %s\n", get_next_line(fd));
-// 	// printf ("Return : %s\n", get_next_line(fd));
-// 	// printf ("Return : %s\n", get_next_line(fd));
-// 	close(fd);
-// }
+	fd = open("tests/test1.txt", O_RDONLY);
+	for (size_t i = 0; i < 10; i++)
+	{
+		str = get_next_line(fd);
+		printf ("Return%lu : %s\n", i, str);
+		free(str);
+	}
+	close(fd);
+}
