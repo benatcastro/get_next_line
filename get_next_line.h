@@ -6,7 +6,7 @@
 /*   By: becastro <becastro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 03:18:38 by bena              #+#    #+#             */
-/*   Updated: 2022/05/21 19:02:02 by becastro         ###   ########.fr       */
+/*   Updated: 2022/05/21 19:30:50 by becastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ typedef struct t_fd
 
 char	*get_next_line(int fd);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char *str1, char *str2);
+char	*ft_strdup(const char *s1);
 size_t	ft_strlen(const char *s);
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 #endif // MACRO
