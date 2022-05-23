@@ -12,24 +12,15 @@
 
 #include "get_next_line_bonus.h"
 
-
-
-// static	t_fd	ft_get_node(int fd)
-// {
-// 	static t_fd	data[MAX_FD];
-// 	int			i;
-
-// 	i = 0;
-// 	if (data[i].fd == 0 && fd != 0)
-// 	{
-// 		data[i].fd = fd;
-// 	}
-// 	else
-// 	{
-// 		data[i].fd = fd;
-// 	}
-// 	return (data[i]);
-// }
+static	t_fd	*ft_get_node(int fd, t_fd *node)
+{
+	if (!node)
+	{
+		node = malloc(sizeof(t_fd));
+		node->fd = fd;
+	}
+	return (node);
+}
 
 static	void	get_str(int fd, t_fd *node)
 {
@@ -44,14 +35,14 @@ static	void	get_str(int fd, t_fd *node)
 	while (rd != 0)
 	{
 		rd = read(fd, buffer, 1);
-		buffer[1] = 0;
 		if (rd == 0)
 			break ;
+		buffer[1] = 0;
 		aux = ft_strjoin(node->str, buffer);
-		free(node->str);
 		node->str = ft_strdup(aux);
-		printf("aux %s", aux);
 		free(aux);
+		if (node->str[ft_strlen(node->str) - 1] == '\n')
+			break ;
 	}
 	free(buffer);
 }
@@ -60,8 +51,12 @@ char	*get_next_line(int fd)
 {
 	static t_fd	*node;
 
-	node = malloc(sizeof(t_fd));
+	if (fd < 0 || BUFFER_SIZE < 0)
+		return (NULL);
+	node = ft_get_node(fd, node);
 	get_str(fd, node);
+	if (node->str[0] == 0)
+		return (NULL);
 	return (node->str);
 }
 
@@ -70,7 +65,7 @@ int	main(void)
 	int		fd;
 	char	*str;
 
-	fd = open("tests/test1.txt", O_RDONLY);
+	fd = open("tests/alternate_line_nl_with_nl", O_RDONLY);
 	for (size_t i = 0; i < 10; i++)
 	{
 		str = get_next_line(fd);
