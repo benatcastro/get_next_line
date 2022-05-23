@@ -6,10 +6,9 @@
 /*   By: becastro <becastro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 03:18:38 by bena              #+#    #+#             */
-/*   Updated: 2022/05/21 19:30:50 by becastro         ###   ########.fr       */
+/*   Updated: 2022/05/23 19:33:33 by becastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
@@ -24,6 +23,7 @@ typedef struct t_fd
 {
 	int				fd;
 	char			*str;
+	int				eof;
 	struct s_list	*next;
 
 }	t_fd;

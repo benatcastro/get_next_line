@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 static	t_fd	*ft_get_node(int fd, t_fd *node)
 {
@@ -22,7 +22,7 @@ static	t_fd	*ft_get_node(int fd, t_fd *node)
 	return (node);
 }
 
-static	void	get_str(int fd, t_fd *node)
+static	int	get_str(int fd, t_fd *node)
 {
 	int		rd;
 	char	*buffer;
@@ -36,7 +36,10 @@ static	void	get_str(int fd, t_fd *node)
 	{
 		rd = read(fd, buffer, 1);
 		if (rd == 0)
-			break ;
+		{
+			free(buffer);
+			return (1);
+		}
 		buffer[1] = 0;
 		aux = ft_strjoin(node->str, buffer);
 		node->str = ft_strdup(aux);
@@ -45,17 +48,26 @@ static	void	get_str(int fd, t_fd *node)
 			break ;
 	}
 	free(buffer);
+	return (0);
 }
 
 char	*get_next_line(int fd)
 {
 	static t_fd	*node;
+	int			eof;
 
 	if (fd < 0 || BUFFER_SIZE < 0)
 		return (NULL);
 	node = ft_get_node(fd, node);
-	get_str(fd, node);
-	if (node->str[0] == 0)
+	eof = get_str(fd, node);
+	if (eof == 1)
+	{
+		free(node->str);
+		free(node);
+		node = NULL;
+		return (NULL);
+	}
+	if (node->str[0] == 0 || node->eof == 1)
 		return (NULL);
 	return (node->str);
 }
@@ -66,7 +78,7 @@ int	main(void)
 	char	*str;
 
 	fd = open("tests/alternate_line_nl_with_nl", O_RDONLY);
-	for (size_t i = 0; i < 10; i++)
+	for (size_t i = 0; i < 15; i++)
 	{
 		str = get_next_line(fd);
 		printf ("Return%lu : |%s|\n", i, str);
