@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: becastro <becastro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 07:26:41 by bena              #+#    #+#             */
-/*   Updated: 2022/05/23 18:40:38 by becastro         ###   ########.fr       */
+/*   Updated: 2022/05/24 13:25:06 by becastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,6 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 		dst[counter] = '\0';
 	}
 	return (ft_strlen(src));
-}
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char	*str;
-
-	if (start >= ft_strlen(s))
-	{
-		str = (char *)malloc(1);
-		*str = '\0';
-		return (str);
-	}
-	str = NULL;
-	s += start;
-	if (len > ft_strlen(s))
-		len = ft_strlen(s);
-	str = malloc(len + 1);
-	if (!(str))
-		return (NULL);
-	ft_strlcpy(str, s, len + 1);
-	return (str);
 }
 
 char	*ft_strjoin(char *str1, char *str2)

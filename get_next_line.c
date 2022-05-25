@@ -18,6 +18,7 @@ static	t_fd	*ft_get_node(int fd, t_fd *node)
 	{
 		node = malloc(sizeof(t_fd));
 		node->fd = fd;
+		node->next = NULL;
 	}
 	return (node);
 }

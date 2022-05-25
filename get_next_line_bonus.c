@@ -12,14 +12,33 @@
 
 #include "get_next_line.h"
 
-static	t_fd	*ft_get_node(int fd, t_fd *node)
+static	t_fd	*ft_create_node(int fd)
+{
+	t_fd	*node;
+
+	printf("NODE BEING CREATED (%d)\n", fd);
+	node = malloc(sizeof(t_fd));
+	node->fd = fd;
+	node->next = NULL;
+	return (node);
+}
+
+static	t_fd	*ft_get_node(int fd, t_fd **node)
 {
 	if (!node)
 	{
-		node = malloc(sizeof(t_fd));
-		node->fd = fd;
+		*node = ft_create_node(fd);
+		node = *node;
 	}
-	return (node);
+	while (!(*node)->next)
+	{
+		printf("WHILE FD(%d)\n", (*node)->fd);
+		if ((*node)->fd == fd)
+			return ((*node));
+		else
+			(*node)->next = ft_create_node(fd);
+	}
+	return ((*node));
 }
 
 static	int	get_str(int fd, t_fd *node, int rd)
@@ -58,32 +77,46 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	node = ft_get_node(fd, node);
-	eof = get_str(fd, node, 1);
+	*node = ft_get_node(fd, node);
+	eof = get_str(fd, *node, 1);
 	if (eof == 1)
 	{
-		free(node->str);
-		free(node);
+		free((*node)->str);
+		free((*node));
 		node = NULL;
 		return (NULL);
 	}
-	if (node->str[0] == 0 || node->eof == 1)
+	if ((*node)->str[0] == 0 || (*node)->eof == 1)
 		return (NULL);
-	return (node->str);
+	return ((*node)->str);
 }
 
 int	main(void)
 {
 	int		fd;
+	int		fd2;
+	int		fd3;
 	char	*str;
 
-	fd = open("tests/big_line_no_nl", O_RDONLY);
-	printf("FD: (%d)\n", fd);
-	for (size_t i = 0; i < 15; i++)
+	fd = open("tests/test1.txt", O_RDONLY);
+	fd2 = open("tests/test2.txt", O_RDONLY);
+	fd3 = open("tests/test3.txt", O_RDONLY);
+	printf("FD1: (%d)\n", fd);
+	printf("FD2: (%d)\n", fd2);
+	printf("FD3: (%d)\n", fd3);
+	for (size_t i = 0; i < 5; i++)
 	{
 		str = get_next_line(fd);
-		printf ("Return%lu : |%s|\n", i, str);
+		printf ("Return : |%s|\n", str);
+		free(str);
+		str = get_next_line(fd2);
+		printf ("Return : |%s|\n", str);
+		free(str);
+		str = get_next_line(fd3);
+		printf ("Return : |%s|\n", str);
 		free(str);
 	}
 	close(fd);
+	close(fd2);
+	close(fd3);
 }
