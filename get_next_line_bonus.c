@@ -29,7 +29,7 @@ static	t_fd	*ft_create_node(int fd)
 {
 	t_fd	*node;
 
-	//printf("NODE BEING CREATED (%d)\n", fd);
+	printf("NODE BEING CREATED (%d)\n", fd);
 	node = malloc(sizeof(t_fd));
 	node->fd = fd;
 	node->next = NULL;
@@ -40,28 +40,29 @@ static	t_fd	*ft_get_node(int fd, t_fd **node)
 {
 	t_fd	*tmp;
 
+		//printf("FD: (%d)\n", fd);
+	if (!(*node))
+	{
+		//printf("PRIMER NODO\n");
+		(*node) = ft_create_node(fd);
+	}
 	tmp = (*node);
-	if (!(*node))
+	while ((tmp))
 	{
-		//printf("ESTO NO DEBERIA PASAR\n");
-		(*node) = ft_create_node(fd);
-	}
-	while ((*node))
-	{
-		printf("ACTUAL NODE FD (%d)\n", (*node)->fd);
-		if ((*node)->fd == fd)
+		//printf("ACTUAL NODE FD (%d) (%d)\n", (tmp)->fd, fd);
+		if ((tmp)->fd == fd)
 		{
-			printf("HA ENTRADO EN BUCLE\n");
-			return (*node);
+			//printf("LOOP\n");
+			return (tmp);
 		}
-		(*node) = (*node)->next;
+		(tmp) = (tmp)->next;
 	}
-	if (!(*node))
+	if (!(tmp))
 	{
-		printf("ENTERING LOOP\n");
-		(*node) = ft_create_node(fd);
+		//printf("NO HAY COINCIDENCIAS\n");
+		(tmp) = ft_create_node(fd);
 	}
-	return ((*node));
+	return ((tmp));
 }
 
 static	int	get_str(int fd, t_fd *node, int rd)
@@ -95,24 +96,26 @@ static	int	get_str(int fd, t_fd *node, int rd)
 
 char	*get_next_line(int fd)
 {
-	static t_fd	*node;
-	int			eof;
+	static t_fd		*node;
+	t_fd			*aux;
+	int				eof;
 
+	aux = node;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	node = ft_get_node(fd, &node);
-	eof = get_str(fd, node, 1);
+	aux = ft_get_node(fd, &node);
+	eof = get_str(fd, aux, 1);
 	if (eof == 1)
 	{
 		//printf("FREEING NODE (%d)\n", node->fd);
-		free((node)->str);
-		free((node));
-		node = NULL;
+		free(aux->str);
+		free(aux);
+		aux = NULL;
 		return (NULL);
 	}
-	if ((node)->str[0] == 0 || (node)->eof == 1)
+	if ((aux)->str[0] == 0 || (aux)->eof == 1)
 		return (NULL);
-	return ((node)->str);
+	return ((aux)->str);
 }
 
 int	main(void)
@@ -128,7 +131,7 @@ int	main(void)
 	printf("FD1: (%d)\n", fd);
 	printf("FD2: (%d)\n", fd2);
 	printf("FD3: (%d)\n", fd3);
-	for (size_t i = 0; i < 3; i++)
+	for (size_t i = 0; i < 4; i++)
 	{
 		str = get_next_line(fd);
 		printf ("Return : |%s|\n", str);
