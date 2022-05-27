@@ -25,16 +25,36 @@
 // 	}
 // 	return i;
 // }
-static	t_fd	*ft_create_node(int fd)
+void	ft_lstadd_back(t_fd **lst, t_fd *new)
+{
+	t_fd	*iterate;
+
+	if (new)
+	{
+		if (!*lst)
+		{
+			*lst = new;
+			return ;
+		}
+		iterate = *lst;
+		while (iterate->next)
+			iterate = iterate->next;
+		iterate->next = new;
+	}
+}
+
+static	t_fd	*ft_create_node(int fd, t_fd **head)
 {
 	t_fd	*node;
 
-	printf("NODE BEING CREATED (%d)\n", fd);
+	//printf("NODE BEING CREATED (%d)\n", fd);
 	node = malloc(sizeof(t_fd));
 	node->fd = fd;
 	node->next = NULL;
+	ft_lstadd_back(head, node);
 	return (node);
 }
+
 
 static	t_fd	*ft_get_node(int fd, t_fd **node)
 {
@@ -44,7 +64,7 @@ static	t_fd	*ft_get_node(int fd, t_fd **node)
 	if (!(*node))
 	{
 		//printf("PRIMER NODO\n");
-		(*node) = ft_create_node(fd);
+		(*node) = ft_create_node(fd, node);
 	}
 	tmp = (*node);
 	while ((tmp))
@@ -60,7 +80,7 @@ static	t_fd	*ft_get_node(int fd, t_fd **node)
 	if (!(tmp))
 	{
 		//printf("NO HAY COINCIDENCIAS\n");
-		(tmp) = ft_create_node(fd);
+		(tmp) = ft_create_node(fd, node);
 	}
 	return ((tmp));
 }
