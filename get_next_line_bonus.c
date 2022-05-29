@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 // static 	int		ft_lstsize(t_fd **node)
 // {
@@ -31,12 +31,12 @@ void	ft_lstadd_back(t_fd **lst, t_fd *new)
 
 	if (new)
 	{
-		if (!*lst)
+		if (!(*lst))
 		{
-			*lst = new;
+			(*lst) = new;
 			return ;
 		}
-		iterate = *lst;
+		iterate = (*lst);
 		while (iterate->next)
 			iterate = iterate->next;
 		iterate->next = new;
@@ -55,7 +55,6 @@ static	t_fd	*ft_create_node(int fd, t_fd **head)
 	return (node);
 }
 
-
 static	t_fd	*ft_get_node(int fd, t_fd **node)
 {
 	t_fd	*tmp;
@@ -69,7 +68,7 @@ static	t_fd	*ft_get_node(int fd, t_fd **node)
 	tmp = (*node);
 	while ((tmp))
 	{
-		//printf("ACTUAL NODE FD (%d) (%d)\n", (tmp)->fd, fd);
+		// printf("ACTUAL NODE FD (%d) (%d)\n", (tmp)->fd, fd);
 		if ((tmp)->fd == fd)
 		{
 			//printf("LOOP\n");
@@ -127,10 +126,7 @@ char	*get_next_line(int fd)
 	eof = get_str(fd, aux, 1);
 	if (eof == 1)
 	{
-		//printf("FREEING NODE (%d)\n", node->fd);
-		free(aux->str);
-		free(aux);
-		aux = NULL;
+		ft_free_node(&node, aux);
 		return (NULL);
 	}
 	if ((aux)->str[0] == 0 || (aux)->eof == 1)
@@ -151,7 +147,7 @@ int	main(void)
 	printf("FD1: (%d)\n", fd);
 	printf("FD2: (%d)\n", fd2);
 	printf("FD3: (%d)\n", fd3);
-	for (size_t i = 0; i < 4; i++)
+	for (size_t i = 0; i < 20; i++)
 	{
 		str = get_next_line(fd);
 		printf ("Return : |%s|\n", str);
