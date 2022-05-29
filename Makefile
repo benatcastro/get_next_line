@@ -11,7 +11,7 @@ HEADER  = ../includes/
 SRC_DIR = srcs/ft_
 
 #files
-SRC_FILES = get_next_line.c get_next_line_utils.c
+SRC_FILES = get_next_line_bonus.c get_next_line_utils_bonus.c
 #rules
 
 all: $(NAME)

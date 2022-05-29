@@ -1,54 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: becastro <becastro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 07:26:41 by bena              #+#    #+#             */
-/*   Updated: 2022/05/29 19:25:38 by becastro         ###   ########.fr       */
+/*   Updated: 2022/05/29 20:30:31 by becastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
-{
-	size_t	counter;
+// size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+// {
+// 	size_t	counter;
 
-	counter = 0;
-	if (dstsize > 0)
-	{
-		while (src[counter] && counter < dstsize - 1)
-		{
-			dst[counter] = src[counter];
-			counter++;
-		}
-		dst[counter] = '\0';
-	}
-	return (ft_strlen(src));
-}
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char	*str;
-
-	if (start >= ft_strlen(s))
-	{
-		str = (char *)malloc(1);
-		*str = '\0';
-		return (str);
-	}
-	str = NULL;
-	s += start;
-	if (len > ft_strlen(s))
-		len = ft_strlen(s);
-	str = malloc(len + 1);
-	if (!(str))
-		return (NULL);
-	ft_strlcpy(str, s, len + 1);
-	return (str);
-}
+// 	counter = 0;
+// 	if (dstsize > 0)
+// 	{
+// 		while (src[counter] && counter < dstsize - 1)
+// 		{
+// 			dst[counter] = src[counter];
+// 			counter++;
+// 		}
+// 		dst[counter] = '\0';
+// 	}
+// 	return (ft_strlen(src));
+// }
 
 char	*ft_strjoin(char *str1, char *str2)
 {
@@ -100,4 +79,31 @@ char	*ft_strdup(const char *s1)
 		str[i] = s1[i];
 	str[i] = '\0';
 	return (str);
+}
+
+void	ft_free_node(t_fd **head, t_fd *node)
+{
+	t_fd	*tmp_head;
+	t_fd	*aux;
+
+	(void)aux;
+	tmp_head = *head;
+	if (tmp_head == node)
+	{
+		free(node->str);
+		free(node);
+		(*head) = (*head)->next;
+	}
+	else
+	{
+		while (tmp_head != node)
+		{
+			aux = tmp_head;
+			tmp_head = tmp_head->next;
+		}
+		aux->next = tmp_head->next;
+		if (node->str)
+			free(node->str);
+		free(node);
+	}
 }
