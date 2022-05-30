@@ -94,6 +94,7 @@ static	int	get_str(int fd, t_fd *node, int rd)
 	node->str[0] = 0;
 	while (rd > 0)
 	{
+		//printf("loop");
 		rd = read(fd, buffer, 1);
 		if (rd <= 0 && node->str[0] == 0)
 		{
@@ -141,13 +142,13 @@ int	main(void)
 	int		fd3;
 	char	*str;
 
-	fd = open("tests/test1.txt", O_RDONLY);
+	fd = open("tests/multiple_line_no_nl", O_RDONLY);
 	fd2 = open("tests/test2.txt", O_RDONLY);
 	fd3 = open("tests/test3.txt", O_RDONLY);
 	printf("FD1: (%d)\n", fd);
 	printf("FD2: (%d)\n", fd2);
 	printf("FD3: (%d)\n", fd3);
-	for (size_t i = 0; i < 20; i++)
+	for (size_t i = 0; i < 2; i++)
 	{
 		str = get_next_line(fd);
 		printf ("Return : |%s|\n", str);

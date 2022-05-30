@@ -18,6 +18,7 @@ static	t_fd	*ft_get_node(int fd, t_fd *node)
 	{
 		node = malloc(sizeof(t_fd));
 		node->fd = fd;
+		node->str = NULL;
 		node->next = NULL;
 	}
 	return (node);
@@ -28,9 +29,9 @@ static	int	get_str(int fd, t_fd *node, int rd)
 	char	*buffer;
 	char	*aux;
 
-	buffer = malloc(sizeof(char *));
 	node->str = malloc(1);
 	node->str[0] = 0;
+	buffer = malloc(sizeof(char) + 1);
 	while (rd > 0)
 	{
 		rd = read(fd, buffer, 1);
@@ -68,23 +69,23 @@ char	*get_next_line(int fd)
 		node = NULL;
 		return (NULL);
 	}
-	if (node->str[0] == 0 || node->eof == 1)
+	if (node->str[0] == 0 || eof == 1)
 		return (NULL);
 	return (node->str);
 }
 
-// int	main(void)
-// {
-// 	int		fd;
-// 	char	*str;
+int	main(void)
+{
+	int		fd;
+	char	*str;
 
-// 	fd = open("tests/big_line_no_nl", O_RDONLY);
-// 	printf("FD: (%d)\n", fd);
-// 	for (size_t i = 0; i < 15; i++)
-// 	{
-// 		str = get_next_line(fd);
-// 		printf ("Return%lu : |%s|\n", i, str);
-// 		free(str);
-// 	}
-// 	close(fd);
-// }
+	fd = open("tests/alternate_line_nl_no_nl", O_RDONLY);
+	printf("FD: (%d)\n", fd);
+	for (size_t i = 0; i < 11; i++)
+	{
+		str = get_next_line(fd);
+		printf ("Return%lu : |%s|\n", i, str);
+		free(str);
+	}
+	close(fd);
+}
