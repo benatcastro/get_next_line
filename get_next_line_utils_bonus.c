@@ -6,7 +6,7 @@
 /*   By: becastro <becastro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 07:26:41 by bena              #+#    #+#             */
-/*   Updated: 2022/05/29 20:30:31 by becastro         ###   ########.fr       */
+/*   Updated: 2022/05/30 16:53:56 by becastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,40 +70,44 @@ char	*ft_strdup(const char *s1)
 {
 	char	*str;
 	int		i;
+	size_t	len;
 
+	len = ft_strlen(s1);
 	i = -1;
-	str = malloc((ft_strlen(s1) + 1) * sizeof(char));
+	str = malloc((len + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
-	while (++i < (int)ft_strlen(s1) + 1)
+	while (++i < (int)len)
 		str[i] = s1[i];
 	str[i] = '\0';
 	return (str);
 }
 
-void	ft_free_node(t_fd **head, t_fd *node)
+void	ft_free_node(t_fd **head, t_fd *node, int fd)
 {
-	t_fd	*tmp_head;
 	t_fd	*aux;
 
-	(void)aux;
-	tmp_head = *head;
-	if (tmp_head == node)
+	(void)fd;
+	if ((*head) == node)
 	{
-		free(node->str);
-		free(node);
 		(*head) = (*head)->next;
+		aux = node;
+		(*head) = aux->next;
+		printf("FIRST NODE FREE (%d) \n", aux->fd);
+		free(aux);
 	}
 	else
 	{
-		while (tmp_head != node)
+		while ((*head))
 		{
-			aux = tmp_head;
-			tmp_head = tmp_head->next;
+			if ((*head)->next == node)
+			{
+				(*head)->next = node->next;
+				break ;
+			}
+			(*head) = (*head)->next;
 		}
-		aux->next = tmp_head->next;
-		if (node->str)
-			free(node->str);
+		printf("NODE BEING FREE (%d)\n", node->fd);
 		free(node);
 	}
 }

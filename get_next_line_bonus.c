@@ -12,19 +12,6 @@
 
 #include "get_next_line_bonus.h"
 
-// static 	int		ft_lstsize(t_fd **node)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while ((*node))
-// 	{
-// 		printf("PRINT LIST (%d)\n", (*node)->fd);
-// 		(*node) = (*node)->next;
-// 		i++;
-// 	}
-// 	return i;
-// }
 void	ft_lstadd_back(t_fd **lst, t_fd *new)
 {
 	t_fd	*iterate;
@@ -47,9 +34,10 @@ static	t_fd	*ft_create_node(int fd, t_fd **head)
 {
 	t_fd	*node;
 
-	//printf("NODE BEING CREATED (%d)\n", fd);
+	printf("NODE BEING CREATED (%d)\n", fd);
 	node = malloc(sizeof(t_fd));
 	node->fd = fd;
+	node->str = NULL;
 	node->next = NULL;
 	ft_lstadd_back(head, node);
 	return (node);
@@ -94,7 +82,6 @@ static	int	get_str(int fd, t_fd *node, int rd)
 	node->str[0] = 0;
 	while (rd > 0)
 	{
-		//printf("loop");
 		rd = read(fd, buffer, 1);
 		if (rd <= 0 && node->str[0] == 0)
 		{
@@ -127,10 +114,12 @@ char	*get_next_line(int fd)
 	eof = get_str(fd, aux, 1);
 	if (eof == 1)
 	{
-		ft_free_node(&node, aux);
+		free(aux->str);
+		printf("freeing node (%d)\n", aux->fd);
+		ft_free_node(&node, node, fd);
 		return (NULL);
 	}
-	if ((aux)->str[0] == 0 || (aux)->eof == 1)
+	if ((aux)->str[0] == 0 || eof == 1)
 		return (NULL);
 	return ((aux)->str);
 }
@@ -142,13 +131,13 @@ int	main(void)
 	int		fd3;
 	char	*str;
 
-	fd = open("tests/multiple_line_no_nl", O_RDONLY);
-	fd2 = open("tests/test2.txt", O_RDONLY);
-	fd3 = open("tests/test3.txt", O_RDONLY);
+	fd = open("tests/alternate_line_no_nl", O_RDONLY);
+	fd2 = open("tests/multiple_line_with_nl", O_RDONLY);
+	fd3 = open("tests/43_with_nl", O_RDONLY);
 	printf("FD1: (%d)\n", fd);
 	printf("FD2: (%d)\n", fd2);
 	printf("FD3: (%d)\n", fd3);
-	for (size_t i = 0; i < 2; i++)
+	for (size_t i = 0; i < 6; i++)
 	{
 		str = get_next_line(fd);
 		printf ("Return : |%s|\n", str);
