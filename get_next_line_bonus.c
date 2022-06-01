@@ -6,7 +6,7 @@
 /*   By: becastro <becastro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 20:46:27 by becastro          #+#    #+#             */
-/*   Updated: 2022/06/01 21:24:39 by becastro         ###   ########.fr       */
+/*   Updated: 2022/06/01 21:30:18 by becastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,33 +110,3 @@ char	*get_next_line(int fd)
 		return (NULL);
 	return ((aux)->str);
 }
-
-// int	main(void)
-// {
-// 	int		fd;
-// 	int		fd2;
-// 	int		fd3;
-// 	char	*str;
-
-// 	fd = open("tests/alternate_line_nl_no_nl", O_RDONLY);
-// 	fd2 = open("tests/multiple_line_with_nl", O_RDONLY);
-// 	fd3 = open("tests/43_with_nl", O_RDONLY);
-// 	printf("FD1: (%d)\n", fd);
-// 	printf("FD2: (%d)\n", fd2);
-// 	printf("FD3: (%d)\n", fd3);
-// 	for (size_t i = 0; i < 10; i++)
-// 	{
-// 		str = get_next_line(fd);
-// 		printf ("Return : |%s|\n", str);
-// 		free(str);
-// 		str = get_next_line(fd2);
-// 		printf ("Return : |%s|\n", str);
-// 		free(str);
-// 		str = get_next_line(fd3);
-// 		printf ("Return : |%s|\n", str);
-// 		free(str);
-// 	}
-// 	close(fd);
-// 	close(fd2);
-// 	close(fd3);
-// }

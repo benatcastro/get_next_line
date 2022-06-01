@@ -6,7 +6,7 @@
 /*   By: becastro <becastro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 20:45:56 by becastro          #+#    #+#             */
-/*   Updated: 2022/06/01 20:46:09 by becastro         ###   ########.fr       */
+/*   Updated: 2022/06/01 21:30:13 by becastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,19 +73,3 @@ char	*get_next_line(int fd)
 		return (NULL);
 	return (node->str);
 }
-
-// int	main(void)
-// {
-// 	int		fd;
-// 	char	*str;
-
-// 	fd = open("tests/alternate_line_nl_no_nl", O_RDONLY);
-// 	printf("FD: (%d)\n", fd);
-// 	for (size_t i = 0; i < 11; i++)
-// 	{
-// 		str = get_next_line(fd);
-// 		printf ("Return%lu : |%s|\n", i, str);
-// 		free(str);
-// 	}
-// 	close(fd);
-// }
