@@ -90,9 +90,8 @@ void	ft_free_node(t_fd **head, t_fd *node, int fd)
 	(void)fd;
 	if ((*head) == node)
 	{
-		(*head) = (*head)->next;
 		aux = node;
-		(*head) = aux->next;
+		(*head) = (*head)->next;
 		printf("FIRST NODE FREE (%d) \n", aux->fd);
 		free(aux);
 	}
