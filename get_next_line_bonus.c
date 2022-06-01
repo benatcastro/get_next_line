@@ -116,7 +116,7 @@ char	*get_next_line(int fd)
 	{
 		free(aux->str);
 		printf("freeing node (%d)\n", aux->fd);
-		ft_free_node(&node, aux, fd);
+		ft_free_node(&node, aux);
 		return (NULL);
 	}
 	if ((aux)->str[0] == 0 || eof == 1)
@@ -124,32 +124,32 @@ char	*get_next_line(int fd)
 	return ((aux)->str);
 }
 
-int	main(void)
-{
-	int		fd;
-	int		fd2;
-	int		fd3;
-	char	*str;
+// int	main(void)
+// {
+// 	int		fd;
+// 	int		fd2;
+// 	int		fd3;
+// 	char	*str;
 
-	fd = open("tests/alternate_line_nl_no_nl", O_RDONLY);
-	fd2 = open("tests/multiple_line_with_nl", O_RDONLY);
-	fd3 = open("tests/43_with_nl", O_RDONLY);
-	printf("FD1: (%d)\n", fd);
-	printf("FD2: (%d)\n", fd2);
-	printf("FD3: (%d)\n", fd3);
-	for (size_t i = 0; i < 6; i++)
-	{
-		str = get_next_line(fd);
-		printf ("Return : |%s|\n", str);
-		free(str);
-		str = get_next_line(fd2);
-		printf ("Return : |%s|\n", str);
-		free(str);
-		str = get_next_line(fd3);
-		printf ("Return : |%s|\n", str);
-		free(str);
-	}
-	close(fd);
-	close(fd2);
-	close(fd3);
-}
+// 	fd = open("tests/alternate_line_nl_no_nl", O_RDONLY);
+// 	fd2 = open("tests/multiple_line_with_nl", O_RDONLY);
+// 	fd3 = open("tests/43_with_nl", O_RDONLY);
+// 	printf("FD1: (%d)\n", fd);
+// 	printf("FD2: (%d)\n", fd2);
+// 	printf("FD3: (%d)\n", fd3);
+// 	for (size_t i = 0; i < 10; i++)
+// 	{
+// 		str = get_next_line(fd);
+// 		printf ("Return : |%s|\n", str);
+// 		free(str);
+// 		str = get_next_line(fd2);
+// 		printf ("Return : |%s|\n", str);
+// 		free(str);
+// 		str = get_next_line(fd3);
+// 		printf ("Return : |%s|\n", str);
+// 		free(str);
+// 	}
+// 	close(fd);
+// 	close(fd2);
+// 	close(fd3);
+// }

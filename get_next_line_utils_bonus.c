@@ -6,7 +6,7 @@
 /*   By: becastro <becastro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 07:26:41 by bena              #+#    #+#             */
-/*   Updated: 2022/05/30 16:53:56 by becastro         ###   ########.fr       */
+/*   Updated: 2022/06/01 20:39:01 by becastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,10 @@ char	*ft_strdup(const char *s1)
 	return (str);
 }
 
-void	ft_free_node(t_fd **head, t_fd *node, int fd)
+void	ft_free_node(t_fd **head, t_fd *node)
 {
 	t_fd	*aux;
 
-	(void)fd;
 	if ((*head) == node)
 	{
 		aux = node;
@@ -97,14 +96,15 @@ void	ft_free_node(t_fd **head, t_fd *node, int fd)
 	}
 	else
 	{
-		while ((*head))
+		aux = (*head);
+		while (aux)
 		{
-			if ((*head)->next == node)
+			if (aux->next == node)
 			{
-				(*head)->next = node->next;
+				aux->next = node->next;
 				break ;
 			}
-			(*head) = (*head)->next;
+			aux = aux->next;
 		}
 		printf("NODE BEING FREE (%d)\n", node->fd);
 		free(node);
