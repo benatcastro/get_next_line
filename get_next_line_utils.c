@@ -6,7 +6,7 @@
 /*   By: becastro <becastro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 07:26:41 by bena              #+#    #+#             */
-/*   Updated: 2022/05/23 18:40:38 by becastro         ###   ########.fr       */
+/*   Updated: 2022/06/01 20:55:17 by becastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,13 @@ char	*ft_strjoin(char *str1, char *str2)
 		str1 = malloc(1);
 		str1[0] = '\0';
 	}
-	n_str = malloc(ft_strlen(str1) + ft_strlen(str2) + 1);
+	n_str = malloc(ft_strlen(str1) + 2);
 	if (!n_str)
 		return (NULL);
 	while (str1[++i])
 		n_str[i] = str1[i];
-	while (str2[++j])
-		n_str[i + j] = str2[j];
-	n_str[j + i] = '\0';
+	n_str[i] = str2[0];
+	n_str[i + 1] = '\0';
 	free(str1);
 	return (n_str);
 }

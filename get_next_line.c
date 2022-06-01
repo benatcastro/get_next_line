@@ -72,18 +72,18 @@ char	*get_next_line(int fd)
 	return (node->str);
 }
 
-int	main(void)
-{
-	int		fd;
-	char	*str;
+// int	main(void)
+// {
+// 	int		fd;
+// 	char	*str;
 
-	fd = open("tests/big_line_no_nl", O_RDONLY);
-	printf("FD: (%d)\n", fd);
-	for (size_t i = 0; i < 15; i++)
-	{
-		str = get_next_line(fd);
-		printf ("Return%lu : |%s|\n", i, str);
-		free(str);
-	}
-	close(fd);
-}
+// 	fd = open("tests/big_line_no_nl", O_RDONLY);
+// 	printf("FD: (%d)\n", fd);
+// 	for (size_t i = 0; i < 15; i++)
+// 	{
+// 		str = get_next_line(fd);
+// 		printf ("Return%lu : |%s|\n", i, str);
+// 		free(str);
+// 	}
+// 	close(fd);
+// }
