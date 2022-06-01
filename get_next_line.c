@@ -27,7 +27,7 @@ static	int	get_str(int fd, t_fd *node, int rd)
 	char	*buffer;
 	char	*aux;
 
-	buffer = malloc(sizeof(char *));
+	buffer = malloc(2);
 	node->str = malloc(1);
 	node->str[0] = 0;
 	while (rd > 0)

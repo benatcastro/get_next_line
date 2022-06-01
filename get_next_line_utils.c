@@ -6,7 +6,7 @@
 /*   By: becastro <becastro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 07:26:41 by bena              #+#    #+#             */
-/*   Updated: 2022/06/01 20:55:17 by becastro         ###   ########.fr       */
+/*   Updated: 2022/06/01 20:59:01 by becastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,9 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 char	*ft_strjoin(char *str1, char *str2)
 {
 	int		i;
-	int		j;
 	char	*n_str;
 
 	i = -1;
-	j = -1;
 	if (!str1)
 	{
 		str1 = malloc(1);
