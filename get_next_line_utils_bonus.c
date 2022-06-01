@@ -6,28 +6,11 @@
 /*   By: becastro <becastro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 07:26:41 by bena              #+#    #+#             */
-/*   Updated: 2022/06/01 20:45:33 by becastro         ###   ########.fr       */
+/*   Updated: 2022/06/01 21:25:05 by becastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-// size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
-// {
-// 	size_t	counter;
-
-// 	counter = 0;
-// 	if (dstsize > 0)
-// 	{
-// 		while (src[counter] && counter < dstsize - 1)
-// 		{
-// 			dst[counter] = src[counter];
-// 			counter++;
-// 		}
-// 		dst[counter] = '\0';
-// 	}
-// 	return (ft_strlen(src));
-// }
 
 char	*ft_strjoin(char *str1, char *str2)
 {
@@ -91,7 +74,6 @@ void	ft_free_node(t_fd **head, t_fd *node)
 	{
 		aux = node;
 		(*head) = (*head)->next;
-		//printf("FIRST NODE FREE (%d) \n", aux->fd);
 		free(aux);
 	}
 	else
@@ -106,7 +88,6 @@ void	ft_free_node(t_fd **head, t_fd *node)
 			}
 			aux = aux->next;
 		}
-		//printf("NODE BEING FREE (%d)\n", node->fd);
 		free(node);
 	}
 }

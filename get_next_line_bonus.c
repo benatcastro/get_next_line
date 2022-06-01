@@ -6,7 +6,7 @@
 /*   By: becastro <becastro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 20:46:27 by becastro          #+#    #+#             */
-/*   Updated: 2022/06/01 20:46:30 by becastro         ###   ########.fr       */
+/*   Updated: 2022/06/01 21:24:39 by becastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static	t_fd	*ft_create_node(int fd, t_fd **head)
 {
 	t_fd	*node;
 
-	//printf("NODE BEING CREATED (%d)\n", fd);
 	node = malloc(sizeof(t_fd));
 	node->fd = fd;
 	node->str = NULL;
@@ -47,28 +46,17 @@ static	t_fd	*ft_get_node(int fd, t_fd **node)
 {
 	t_fd	*tmp;
 
-		//printf("FD: (%d)\n", fd);
 	if (!(*node))
-	{
-		//printf("PRIMER NODO\n");
 		(*node) = ft_create_node(fd, node);
-	}
 	tmp = (*node);
 	while ((tmp))
 	{
-		// printf("ACTUAL NODE FD (%d) (%d)\n", (tmp)->fd, fd);
 		if ((tmp)->fd == fd)
-		{
-			//printf("LOOP\n");
 			return (tmp);
-		}
 		(tmp) = (tmp)->next;
 	}
 	if (!(tmp))
-	{
-		//printf("NO HAY COINCIDENCIAS\n");
 		(tmp) = ft_create_node(fd, node);
-	}
 	return ((tmp));
 }
 
@@ -115,7 +103,6 @@ char	*get_next_line(int fd)
 	if (eof == 1)
 	{
 		free(aux->str);
-		printf("freeing node (%d)\n", aux->fd);
 		ft_free_node(&node, aux);
 		return (NULL);
 	}
