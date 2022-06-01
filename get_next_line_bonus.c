@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: becastro <becastro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/15 03:21:49 by bena              #+#    #+#             */
-/*   Updated: 2022/05/20 17:28:58y becastro         ###   ########.fr       */
+/*   Created: 2022/06/01 20:46:27 by becastro          #+#    #+#             */
+/*   Updated: 2022/06/01 20:46:30 by becastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static	t_fd	*ft_create_node(int fd, t_fd **head)
 {
 	t_fd	*node;
 
-	printf("NODE BEING CREATED (%d)\n", fd);
+	//printf("NODE BEING CREATED (%d)\n", fd);
 	node = malloc(sizeof(t_fd));
 	node->fd = fd;
 	node->str = NULL;

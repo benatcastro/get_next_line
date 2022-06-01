@@ -6,7 +6,7 @@
 /*   By: becastro <becastro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 07:26:41 by bena              #+#    #+#             */
-/*   Updated: 2022/06/01 20:39:01 by becastro         ###   ########.fr       */
+/*   Updated: 2022/06/01 20:45:33 by becastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	ft_free_node(t_fd **head, t_fd *node)
 	{
 		aux = node;
 		(*head) = (*head)->next;
-		printf("FIRST NODE FREE (%d) \n", aux->fd);
+		//printf("FIRST NODE FREE (%d) \n", aux->fd);
 		free(aux);
 	}
 	else
@@ -106,7 +106,7 @@ void	ft_free_node(t_fd **head, t_fd *node)
 			}
 			aux = aux->next;
 		}
-		printf("NODE BEING FREE (%d)\n", node->fd);
+		//printf("NODE BEING FREE (%d)\n", node->fd);
 		free(node);
 	}
 }
